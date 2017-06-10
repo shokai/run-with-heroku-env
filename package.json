@@ -1,6 +1,6 @@
 {
   "name": "run-with-heroku-env",
-  "version": "0.0.4",
+  "version": "0.1.0",
   "description": "execute command with heroku env",
   "main": "index.js",
   "scripts": {
