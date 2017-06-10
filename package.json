@@ -14,5 +14,13 @@
     "exec"
   ],
   "author": "Sho Hashimoto <hashimoto@shokai.org>",
-  "license": "MIT"
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shokai/run-with-heroku-env.git"
+  },
+  "bugs": {
+    "url": "https://github.com/shokai/run-with-heroku-env/issues"
+  },
+  "homepage": "https://github.com/shokai/run-with-heroku-env#readme"
 }
