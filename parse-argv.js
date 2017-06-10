@@ -27,6 +27,6 @@ module.exports = function parseArgv (argv) {
     herokuOptions[key] = value
   }
 
-  const command = argv.join(' ')
+  const command = argv
   return {envs, herokuOptions, command}
 }

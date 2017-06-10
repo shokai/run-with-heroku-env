@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-const childProcess = require('child_process')
+const {execSync, spawn} = require('child_process')
 const parseArgv = require('./parse-argv')
 
 function getHerokuEnvs ({envs, herokuOptions} = {}) {
@@ -12,7 +12,7 @@ function getHerokuEnvs ({envs, herokuOptions} = {}) {
   console.error(`== getting ENV ${envs}: ${cmd}`)
 
   const herokuEnvs = {}
-  for (let line of childProcess.execSync(cmd).toString().split(/\n/)) {
+  for (let line of execSync(cmd).toString().split(/\n/)) {
     const [, key, value] = line.match(/^([A-Z\d_]+):\s+([^\s]+)$/) || []
     if (key && value && envs.includes(key)) {
       herokuEnvs[key] = value
@@ -22,18 +22,19 @@ function getHerokuEnvs ({envs, herokuOptions} = {}) {
 }
 
 function exec ({herokuEnvs, command}) {
-  console.error(`== run: ${command}`)
-  let cmd = command
-  for (let key of Object.keys(herokuEnvs)) {
-    cmd = `${key}=${herokuEnvs[key]} ${cmd}`
-  }
-  return childProcess.execSync(cmd).toString()
+  console.error(`== run: ${command.join(' ')}`)
+  const _spawn = spawn(command[0], command.slice(1), {
+    stdio: ['pipe', process.stdout, process.stderr],
+    env: Object.assign({}, process.env, herokuEnvs)
+  })
+  _spawn.on('close', process.exit)
+  _spawn.on('error', console.error)
 }
 
 function run () {
   const {envs, herokuOptions, command} = parseArgv(process.argv.slice(2))
   const herokuEnvs = getHerokuEnvs({envs, herokuOptions})
-  console.log(exec({herokuEnvs, command}))
+  exec({herokuEnvs, command})
 }
 
 run()
