@@ -1,0 +1,15 @@
+{
+  "name": "run-with-heroku-env",
+  "version": "0.0.1",
+  "description": "execute command with heroku env",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "heorku",
+    "exec"
+  ],
+  "author": "Sho Hashimoto <hashimoto@shokai.org>",
+  "license": "MIT"
+}
