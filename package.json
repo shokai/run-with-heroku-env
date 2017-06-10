@@ -4,7 +4,7 @@
   "description": "execute command with heroku env",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "./node_modules/.bin/standard"
   },
   "bin": {
     "run-with-heroku-env": "run-with-heroku-env.js"
@@ -22,5 +22,8 @@
   "bugs": {
     "url": "https://github.com/shokai/run-with-heroku-env/issues"
   },
-  "homepage": "https://github.com/shokai/run-with-heroku-env#readme"
+  "homepage": "https://github.com/shokai/run-with-heroku-env#readme",
+  "devDependencies": {
+    "standard": "^10.0.2"
+  }
 }
