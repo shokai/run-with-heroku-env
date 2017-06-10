@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+const pkg = require('./package.json')
 const {execSync, spawn} = require('child_process')
 const parseArgv = require('./parse-argv')
 
@@ -31,8 +32,22 @@ function exec ({herokuEnvs, command}) {
   _spawn.on('error', console.error)
 }
 
+function help () {
+  return `
+run-with-heroku-env v${pkg.version}
+Usage:
+  % run-with-heroku-env [ENV1, ENV2, ENV3] [heroku options] [execute-command]
+  % run-with-heroku-env MONGOLAB_URI --app HEROKU_APP_NAME node scripts/count.js
+`
+}
+
 function run () {
   const {envs, herokuOptions, command} = parseArgv(process.argv.slice(2))
+  if (envs.length < 1) {
+    console.error(`Argument Error: ENV is missing`)
+    console.error(help())
+    process.exit(1)
+  }
   const herokuEnvs = getHerokuEnvs({envs, herokuOptions})
   exec({herokuEnvs, command})
 }
