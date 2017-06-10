@@ -3,13 +3,15 @@ const childProcess = require('child_process')
 const parseArgv = require('./parse-argv')
 
 function getHerokuEnvs ({envs, herokuOptions} = {}) {
-  let cmd = 'heroku config'
-  for (let key of Object.keys(herokuOptions)) {
-    cmd += ` --${key} ${herokuOptions[key]}`
-  }
+  const option =
+        Object.keys(herokuOptions)
+        .map(key => `--${key} ${herokuOptions[key]}`)
+        .join(' ')
+
+  const cmd = `heroku config ${option}`
+  console.error(`== getting ENV ${envs}: ${cmd}`)
 
   const herokuEnvs = {}
-
   for (let line of childProcess.execSync(cmd).toString().split(/\n/)) {
     const [, key, value] = line.match(/^([A-Z\d_]+):\s+([^\s]+)$/) || []
     if (key && value && envs.includes(key)) {
@@ -20,6 +22,7 @@ function getHerokuEnvs ({envs, herokuOptions} = {}) {
 }
 
 function exec ({herokuEnvs, command}) {
+  console.error(`== run: ${command}`)
   let cmd = command
   for (let key of Object.keys(herokuEnvs)) {
     cmd = `${key}=${herokuEnvs[key]} ${cmd}`
