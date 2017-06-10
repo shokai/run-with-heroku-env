@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+
 const pkg = require('./package.json')
 const {execSync, spawn} = require('child_process')
 const parseArgv = require('./parse-argv')
@@ -49,6 +50,12 @@ function run () {
     process.exit(1)
   }
   const herokuEnvs = getHerokuEnvs({envs, herokuOptions})
+  for (let key of envs) {
+    if (!herokuEnvs[key]) {
+      console.error(`${key} is not found at Heroku ENV`)
+      process.exit(1)
+    }
+  }
   exec({herokuEnvs, command})
 }
 
