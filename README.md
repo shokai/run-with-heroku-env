@@ -15,5 +15,5 @@ execute command with heroku env.
 
 ## Usage
 
-    % run-with-heroku-env [ENV1, ENV2, ENV3] [heroku options] [execute-command]
+    % run-with-heroku-env [ENV1 ENV2 ENV3] [heroku options] [execute-command]
     % run-with-heroku-env MONGOLAB_URI --app HEROKU_APP_NAME node scripts/count.js
