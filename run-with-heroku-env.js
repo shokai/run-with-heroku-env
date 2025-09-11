@@ -15,7 +15,7 @@ function getHerokuEnvs ({envs, herokuOptions} = {}) {
 
   const herokuEnvs = {}
   for (let line of execSync(cmd).toString().split(/\n/)) {
-    const [, key, value] = line.match(/^([A-Z\d_]+):\s+([^\s]+)$/) || []
+    const [, key, value] = line.match(/^([A-Z\d_]+):\s+(.+)$/) || []
     if (key && value && envs.includes(key)) {
       herokuEnvs[key] = value
     }
