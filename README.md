@@ -7,11 +7,9 @@ execute command with heroku env.
 
 [![CircleCI](https://circleci.com/gh/shokai/run-with-heroku-env.svg?style=svg)](https://circleci.com/gh/shokai/run-with-heroku-env)
 
-
 ## Install
 
     % npm i run-with-heroku-env -g
-
 
 ## Usage
 
