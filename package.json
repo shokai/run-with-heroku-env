@@ -4,7 +4,8 @@
   "description": "execute command with heroku env",
   "main": "index.js",
   "scripts": {
-    "test": "prettier --check ."
+    "test": "prettier --check .",
+    "prettier-write": "prettier --write ."
   },
   "bin": {
     "run-with-heroku-env": "run-with-heroku-env.js"
