@@ -4,7 +4,7 @@
   "description": "execute command with heroku env",
   "main": "index.js",
   "scripts": {
-    "test": "./node_modules/.bin/standard"
+    "test": "prettier --check ."
   },
   "bin": {
     "run-with-heroku-env": "run-with-heroku-env.js"
@@ -24,6 +24,6 @@
   },
   "homepage": "https://github.com/shokai/run-with-heroku-env#readme",
   "devDependencies": {
-    "standard": "^10.0.2"
+    "prettier": "^3.6.2"
   }
 }
