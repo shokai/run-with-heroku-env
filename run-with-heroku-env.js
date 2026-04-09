@@ -16,7 +16,14 @@ function getHerokuEnvs({ envs, herokuOptions } = {}) {
   console.error(`== getting ENV ${envs}: heroku ${args.join(' ')}`);
 
   const result = execFileSync('heroku', args);
-  const config = JSON.parse(result.toString());
+  const output = result.toString();
+  let config;
+  try {
+    config = JSON.parse(output);
+  } catch (e) {
+    console.error(output);
+    process.exit(1);
+  }
 
   const herokuEnvs = {};
   for (const key of envs) {
