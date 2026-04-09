@@ -1,22 +1,34 @@
 #!/usr/bin/env node
 
 const pkg = require('./package.json');
-const { execSync, spawn } = require('child_process');
+const { execFileSync, spawn } = require('child_process');
 const parseArgv = require('./parse-argv');
 
 function getHerokuEnvs({ envs, herokuOptions } = {}) {
-  const option = Object.keys(herokuOptions)
-    .map(key => `--${key} ${herokuOptions[key]}`)
-    .join(' ');
+  const args = ['config', '--json'];
+  for (const key of Object.keys(herokuOptions)) {
+    args.push(`--${key}`);
+    if (herokuOptions[key] !== true) {
+      args.push(String(herokuOptions[key]));
+    }
+  }
 
-  const cmd = `FORCE_COLOR=0 heroku config ${option}`;
-  console.error(`== getting ENV ${envs}: ${cmd}`);
+  console.error(`== getting ENV ${envs}: heroku ${args.join(' ')}`);
+
+  const result = execFileSync('heroku', args);
+  const output = result.toString();
+  let config;
+  try {
+    config = JSON.parse(output);
+  } catch (e) {
+    console.error(output);
+    process.exit(1);
+  }
 
   const herokuEnvs = {};
-  for (let line of execSync(cmd).toString().split(/\n/)) {
-    const [, key, value] = line.match(/^([A-Z\d_]+):\s+(.+)$/) || [];
-    if (key && value && envs.includes(key)) {
-      herokuEnvs[key] = value;
+  for (const key of envs) {
+    if (config[key] !== undefined) {
+      herokuEnvs[key] = config[key];
     }
   }
   return herokuEnvs;
