@@ -9,7 +9,7 @@ function getHerokuEnvs({ envs, herokuOptions } = {}) {
     .map(key => `--${key} ${herokuOptions[key]}`)
     .join(' ');
 
-  const cmd = `heroku config ${option}`;
+  const cmd = `FORCE_COLOR=0 heroku config ${option}`;
   console.error(`== getting ENV ${envs}: ${cmd}`);
 
   const herokuEnvs = {};
