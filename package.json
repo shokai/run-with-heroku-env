@@ -4,8 +4,8 @@
   "description": "execute command with heroku env",
   "main": "index.js",
   "scripts": {
-    "test": "prettier --check .",
-    "prettier-write": "prettier --write ."
+    "test": "oxfmt --check .",
+    "format": "oxfmt --write ."
   },
   "bin": {
     "run-with-heroku-env": "run-with-heroku-env.js"
@@ -25,6 +25,6 @@
   },
   "homepage": "https://github.com/shokai/run-with-heroku-env#readme",
   "devDependencies": {
-    "prettier": "^3.6.2"
+    "oxfmt": "^0.42.0"
   }
 }

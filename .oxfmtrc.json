@@ -1,0 +1,9 @@
+{
+  "arrowParens": "avoid",
+  "singleQuote": true,
+  "jsxSingleQuote": true,
+  "trailingComma": "none",
+  "printWidth": 80,
+  "sortPackageJson": false,
+  "ignorePatterns": []
+}
