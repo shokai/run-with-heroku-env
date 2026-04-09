@@ -24,6 +24,9 @@
     "url": "https://github.com/shokai/run-with-heroku-env/issues"
   },
   "homepage": "https://github.com/shokai/run-with-heroku-env#readme",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
   "devDependencies": {
     "oxfmt": "^0.42.0"
   }
